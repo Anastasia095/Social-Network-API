@@ -35,7 +35,7 @@ module.exports = {
   },
   // update User
   updateUser(req, res) {
-    User.findOneAndUpdate({ _id: req.params.UserId },
+    User.findOneAndUpdate({ _id: ObjectId(req.params.userId) },
       req.body,
       { new: true }
     )
@@ -44,7 +44,6 @@ module.exports = {
           ? res.status(404).json({ message: 'No User with that ID' })
           : res.json({
             User,
-            grade: await grade(req.params.UserId),
           })
       )
       .catch((err) => {
@@ -60,27 +59,27 @@ module.exports = {
   },
   // Delete a User and remove them from the course
   deleteUser(req, res) {
-    User.findOneAndRemove({ _id: req.params.UserId })
+    User.findOneAndRemove({ _id: ObjectId(req.params.userId) },)
       .then((User) =>
         !User
           ? res.status(404).json({ message: 'No such User exists' })
-          : Course.findOneAndUpdate(
+          : Thought.findOneAndUpdate(
             { Users: req.params.UserId },
             { $pull: { Users: req.params.UserId } },
             { new: true }
           )
-      )
-      .then((course) =>
-        !course
-          ? res.status(404).json({
-            message: 'User deleted, but no courses found',
-          })
-          : res.json({ message: 'User successfully deleted' })
-      )
-      .catch((err) => {
-        console.log(err);
-        res.status(500).json(err);
-      });
+      );
+    // .then((thought) =>
+    //   !thought
+    //     ? res.status(404).json({
+    //       message: 'User deleted, but no thought found',
+    //     })
+    //     : res.json({ message: 'User successfully deleted' })
+    // )
+    // .catch((err) => {
+    //   console.log(err);
+    //   // res.status(500).json(err);
+    // });
   },
 
   // Add an thought to a User
@@ -119,8 +118,8 @@ module.exports = {
       )
       .catch((err) => res.status(500).json(err));
   },
-    // Remove an friend to a User
-    removeFriend(req, res) {
+  // Remove an friend to a User
+  removeFriend(req, res) {
     console.log('You are adding a friend');
     console.log(req.body);
     User.findOneAndUpdate(
