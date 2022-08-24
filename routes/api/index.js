@@ -1,8 +1,10 @@
 const router = require('express').Router();
-const courseRoutes = require('./thoughtRoutes');
-const studentRoutes = require('./userRoutes');
+const apiRoutes = require('./api');
 
-router.use('/courses', courseRoutes);
-router.use('/students', studentRoutes);
+router.use('/api', apiRoutes);
+
+router.use((req, res) => {
+    return res.send('Wring route!')
+});
 
 module.exports = router;
