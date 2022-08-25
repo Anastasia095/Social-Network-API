@@ -18,14 +18,13 @@ module.exports = {
   },
   // Get a single User
   getSingleUser(req, res) {
-    User.findOne({ _id: req.params.UserId })
+    User.findOne({ _id: ObjectId(req.params.userId) })
       .select('-__v')
       .then(async (User) =>
         !User
           ? res.status(404).json({ message: 'No User with that ID' })
           : res.json({
-            User,
-            grade: await grade(req.params.UserId),
+            User
           })
       )
       .catch((err) => {

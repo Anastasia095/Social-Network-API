@@ -6,6 +6,7 @@ This program is a Social Network API for a social network web application where 
 
 ## Links
 https://github.com/Anastasia095/Social-Network-API
+Video: https://drive.google.com/file/d/16EPbn9dBkAtFQncy0CqkVE5hr_XMSQm8/view
   ## Table of Content
   - [Installation](#installation)
   - [Usage](#usage)
